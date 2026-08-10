@@ -1,6 +1,6 @@
 {
-  "name": "api-gateway",
-  "version": "0.0.1",
+  "name": "cntx/api-gateway",
+  "version": "1.0.0",
   "description": "",
   "type": "module",
   "scripts": {
