@@ -1,0 +1,19 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+      "resolvePackageJsonExports": true,
+      "incremental": false,
+      
+      "noImplicitAny": false,
+
+      "strictBindCallApply": false,
+      "noFallthroughCasesInSwitch": false,
+      "strictPropertyInitialization": true,
+
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+
+      "removeComments": true
+  }
+
+}

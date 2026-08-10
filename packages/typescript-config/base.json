@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "target": "ES2023",
+
+      "strict": true,
+      "strictNullChecks": true,
+      "noUncheckedIndexedAccess": true,
+
+      "esModuleInterop": true,
+      "isolatedModules": true,
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true,
+
+      "declaration": true,
+      "declarationMap": true,
+      "sourceMap": true,
+
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "extends": ["@cntx/typescript-config/base.json"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  }
+}
