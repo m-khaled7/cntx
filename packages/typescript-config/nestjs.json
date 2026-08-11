@@ -8,7 +8,7 @@
 
       "strictBindCallApply": false,
       "noFallthroughCasesInSwitch": false,
-      "strictPropertyInitialization": true,
+      "strictPropertyInitialization": false,
 
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,

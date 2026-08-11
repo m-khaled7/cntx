@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package assets;
+import "google/protobuf/any.proto";
+
+service UploadService {
+  rpc CreateUploadUrl(CreateUploadUrlRequest) returns (CreateUploadUrlResponse);
+}
+
+message CreateUploadUrlRequest {
+    string fileName=1;
+}
+
+message CreateUploadUrlResponse {
+    string postURL=1;
+    map<string,string> formData=2;
+
+}
