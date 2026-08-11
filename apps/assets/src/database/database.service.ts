@@ -6,7 +6,7 @@ import { AssetsRepository } from './repositories/assets.repository.js';
 export class DatabaseService {
   constructor(private readonly assetRepository:AssetsRepository){}
 
-  saveAssit(data:Partial<Asset>){
+  saveAssit(data:Asset){
     const assetEntity=this.assetRepository.createAsset(data)
     return this.assetRepository.saveAsset(assetEntity)
   }

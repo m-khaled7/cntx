@@ -5,11 +5,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 export class AssetsRepository{
     constructor(@InjectRepository(Asset) private readonly repository:Repository<Asset>){}
 
-    createAsset(data:Partial<Asset>){
+    createAsset(data:Asset){
         return this.repository.create(data)
     }
 
-    async saveAsset(entity:Partial<Asset>){
+    async saveAsset(entity:Asset){
         return this.repository.save(entity)
     }
 }

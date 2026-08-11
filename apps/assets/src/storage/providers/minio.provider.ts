@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client } from 'minio';
 import { MinioOptions } from '../../config/configs/minio.config.js';
@@ -12,7 +12,6 @@ export class MinioProvider implements StorageClient {
     constructor(private readonly configService: ConfigService) {
         this.config = this.configService.getOrThrow('minio');
     }
-
     getClient() {
         if (!this.client) {
             this.client = new Client({
@@ -40,4 +39,11 @@ export class MinioProvider implements StorageClient {
         return { postURL, formData };
     }
 
+    getObject( onjectName: string,bucketName=this.config.docsBucketName) {
+        return this.client.getObject(bucketName, onjectName);
+    }
+
+    removeObject( onjectName: string,bucketName=this.config.docsBucketName) {
+        return this.client.removeObject(bucketName, onjectName);
+    }
 }

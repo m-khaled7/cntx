@@ -7,4 +7,6 @@ export abstract class StorageClient {
         objectName: string,
         metadata: fileMetadata
     ): Promise<PreSignedPost>;
+        abstract getObject( onjectName: string,bucketName?: string,): Promise<Stream.Readable>;
+        abstract removeObject( onjectName: string,bucketName?: string,): Promise<void>;
 }

@@ -17,4 +17,6 @@ export const envValidationSchema = Joi.object({
     MINIO_SECRET: Joi.string().required(),
     MINIO_URL_EXP: Joi.number().default(15),
     MINIO_MAX_FILE_SIZE: Joi.number().default(100),
+
+    RMQ_URL:Joi.string().required()
 });

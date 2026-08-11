@@ -4,7 +4,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeor
 @Entity("assets")
 export class Asset {
     @PrimaryGeneratedColumn('uuid')
-    id:string
+    id?:string
 
     @Column()
     assetName:string
@@ -22,5 +22,5 @@ export class Asset {
     userId:string
 
     @CreateDateColumn()
-    createdAt:Date
+    createdAt?:Date
 }
