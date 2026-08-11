@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package iam;
+
+import "google/protobuf/empty.proto";
+import "auth.proto";
+
+service AuthService {
+  rpc Register(auth.RegisterRequest) returns (auth.AuthResponse);
+  rpc Login(auth.LoginRequest) returns (auth.AuthResponse);
+  rpc RefreshToken(google.protobuf.Empty) returns (auth.AuthResponse);
+  rpc Logout(google.protobuf.Empty) returns (google.protobuf.Empty);
+}
+
+
