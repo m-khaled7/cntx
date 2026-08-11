@@ -1,0 +1,6 @@
+{
+    "extends": "@cntx/typescript-config/nestjs.json",
+    "compilerOptions": {
+        "types": ["node", "jest"]
+    }
+}
