@@ -18,13 +18,23 @@
         "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
+        "@cntx/rpc-protos": "workspace:^",
+        "@grpc/grpc-js": "^1.14.4",
         "@nestjs/common": "^11.0.1",
         "@nestjs/config": "^4.0.4",
         "@nestjs/core": "^11.0.1",
+        "@nestjs/jwt": "^11.0.2",
+        "@nestjs/microservices": "^11.1.29",
         "@nestjs/platform-express": "^11.0.1",
+        "@nestjs/typeorm": "^11.0.3",
+        "argon2": "^0.45.1",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.15.1",
         "joi": "^18.2.3",
+        "pg": "^8.23.0",
         "reflect-metadata": "^0.2.2",
-        "rxjs": "^7.8.1"
+        "rxjs": "^7.8.1",
+        "typeorm": "^1.1.0"
     },
     "devDependencies": {
         "@cntx/eslint-config": "workspace:^",
