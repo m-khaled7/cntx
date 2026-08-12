@@ -1,27 +1,34 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { MinioEvent, MinioEventRecord, UploadedFileData } from './interfaces.js';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import {
+    MinioEvent,
+    MinioEventRecord,
+    UploadedFileData,
+    UploadedFileEventData,
+} from './interfaces.js';
 import { DatabaseService } from '../database/database.service.js';
 import { StorageClient } from '../storage/storage-client.js';
 import { fileTypeFromBuffer } from 'file-type';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class UploadValidationService {
     private readonly logger = new Logger(UploadValidationService.name);
     constructor(
         private readonly databaseService: DatabaseService,
-        private readonly storageClient: StorageClient
+        private readonly storageClient: StorageClient,
+        @Inject('KNOWLEDGE_BASE_SERVICE') private readonly knowledgeBase: ClientProxy
     ) {}
     async handleUploadedFile(msg: MinioEvent) {
         const records = msg.Records || [];
         for (const record of records) {
-            const data=this.mapEventData(record)
+            const data = this.mapEventData(record);
             await this.validateUploadedFile(data);
         }
     }
 
     private async validateUploadedFile(data: UploadedFileData) {
-        const {objectName,size,originalName,userId}=data
-        if (!userId || !originalName) {
+        const { objectName, size, originalName, userId } = data;
+        if (!userId && !originalName) {
             await this.storageClient.removeObject(objectName);
             this.logger.warn(`Rejected ${objectName}: Metadata is missing`);
             return;
@@ -33,12 +40,19 @@ export class UploadValidationService {
             this.logger.warn(`Rejected ${objectName}: Unsupported file type`);
             return;
         }
-        await this.databaseService.saveAssit({
+        const asset = await this.databaseService.saveAssit({
             assetName: objectName,
-            originalName,
+            originalName:originalName!,
             size,
             mimeType,
-            userId,
+            userId:userId!,
+        });
+
+        this.knowledgeBase.emit<any,UploadedFileEventData>('file.uploaded', {
+            objectName,
+            mimeType,
+            userId:userId!,
+            assetId: asset.id!,
         });
 
         this.logger.debug(`Approved ${objectName}: File Saved`);

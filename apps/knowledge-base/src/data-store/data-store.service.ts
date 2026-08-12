@@ -15,23 +15,8 @@ export class DataStoreService {
         await this.chunksRepository.insertManyInBatches(chunkEntities)
     }
 
-    
-
-    private rrf(resultSets: RankedResult[][], topK: number, k = 60): RankedResult[] {
-        const merged = new Map<string, { result: RankedResult; score: number }>();
-        for (const set of resultSets) {
-            set.forEach((result, rank) => {
-                const contribution = 1 / (k + rank + 1);
-                const existing = merged.get(result.id);
-                existing
-                    ? (existing.score += contribution)
-                    : merged.set(result.id, { result, score: contribution });
-            });
-        }
-        return [...merged.values()]
-            .sort((a, b) => b.score - a.score)
-            .slice(0, topK)
-            .map(({ result, score }) => ({ ...result, score }));
+    retriveChunks(query:string,embedding:number[],userId:string,poolSize:number,topK:number){
+        return this.chunksRepository.hybridSearch(userId,embedding,query,poolSize=20,topK=5)
     }
 
     private toEntity(chunk:StoreChunkInput):ChunkEntity{

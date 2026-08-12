@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 export const envValidationSchema = Joi.object({
     NODE_ENV: Joi.string().valid('development', 'test', 'production'),
@@ -16,5 +16,8 @@ export const envValidationSchema = Joi.object({
     MINIO_ACCESS: Joi.string().required(),
     MINIO_SECRET: Joi.string().required(),
 
-    RMQ_URL:Joi.string().required()
+    RMQ_URL: Joi.string().required(),
+
+    GOOGLE_API_KEY: Joi.string().required(),
+    GOOGLE_EMBED_MODEL: Joi.string(),
 });

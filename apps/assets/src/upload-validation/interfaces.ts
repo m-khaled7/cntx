@@ -20,3 +20,11 @@ export interface UploadedFileData {
     originalName?: string;
     userId?: string;
 }
+
+
+export interface UploadedFileEventData {
+    objectName: string;
+    mimeType: string;
+    userId: string;
+    assetId: string;
+}

@@ -25,8 +25,14 @@ export class MinioProvider implements StorageClient {
         return this.client;
     }
 
-    getObject( onjectName: string,bucketName=this.config.docsBucketName) {
-        return this.client.getObject(bucketName, onjectName);
+    async getObject( objectName: string,bucketName=this.config.docsBucketName) {
+        const client=this.getClient()
+          const stream = await client.getObject(bucketName, objectName);
+          const chunks: any[] = [];
+          for await (const data of stream) {
+              chunks.push(data);
+          }
+          return Buffer.concat(chunks);
     }
 
     removeObject( onjectName: string,bucketName=this.config.docsBucketName) {

@@ -4,6 +4,7 @@ import serviceConfig from './configs/service.config.js';
 import { envValidationSchema } from './env.validation.js';
 import minioConfig from './configs/minio.config.js';
 import databaseConfig from './configs/database.config.js';
+import googleAiConfig from './configs/google-ai.config.js';
 
 @Module({
     imports: [
@@ -12,7 +13,7 @@ import databaseConfig from './configs/database.config.js';
             cache: true,
             validationSchema:envValidationSchema,
             envFilePath: [`.env.${process.env.NODE_ENV ?? "development"}`, ".env"],
-            load: [serviceConfig,minioConfig,databaseConfig],
+            load: [serviceConfig,minioConfig,databaseConfig,googleAiConfig],
         }),
     ],
 
