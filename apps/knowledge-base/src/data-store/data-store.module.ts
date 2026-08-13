@@ -3,6 +3,7 @@ import { DataStoreService } from "./data-store.service.js";
 import { ChunksRepository } from "./repositories/chunks.repository.js";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ChunkEntity } from "./entities/chunk.entity.js";
 
 @Module({
     imports:[TypeOrmModule.forRootAsync({
@@ -15,10 +16,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
                     username: configService.getOrThrow<string>('database.username'),
                     password: configService.getOrThrow<string>('database.password'),
                     database: configService.getOrThrow<string>('database.name'),
-                    entities: ['./entities/**/*.entity.js'],
+                    autoLoadEntities:true,
                     synchronize: true,
                 }),
-            })],
+            }),
+        TypeOrmModule.forFeature([ChunkEntity])],
     providers:[DataStoreService,ChunksRepository],
     exports:[DataStoreService]
 })

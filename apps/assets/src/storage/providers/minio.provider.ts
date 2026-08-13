@@ -2,8 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client } from 'minio';
 import { MinioOptions } from '../../config/configs/minio.config.js';
-import { StorageClient } from '../storage-client.js';
-import { fileMetadata } from '../../common/types/files.types.js';
+import { fileMetadata, StorageClient } from '../storage-client.js';
 @Injectable()
 export class MinioProvider implements StorageClient {
     private client: Client;

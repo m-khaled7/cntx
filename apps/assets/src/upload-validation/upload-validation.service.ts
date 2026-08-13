@@ -1,6 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import {
-    MinioEvent,
     MinioEventRecord,
     UploadedFileData,
     UploadedFileEventData,
@@ -9,6 +8,7 @@ import { DatabaseService } from '../database/database.service.js';
 import { StorageClient } from '../storage/storage-client.js';
 import { fileTypeFromBuffer } from 'file-type';
 import { ClientProxy } from '@nestjs/microservices';
+import { UploadedFileEventDto } from './dto/uploaded-file-event.dto.js';
 
 @Injectable()
 export class UploadValidationService {
@@ -18,7 +18,8 @@ export class UploadValidationService {
         private readonly storageClient: StorageClient,
         @Inject('KNOWLEDGE_BASE_SERVICE') private readonly knowledgeBase: ClientProxy
     ) {}
-    async handleUploadedFile(msg: MinioEvent) {
+
+    async handleUploadedFile(msg: UploadedFileEventDto) {
         const records = msg.Records || [];
         for (const record of records) {
             const data = this.mapEventData(record);
@@ -28,7 +29,7 @@ export class UploadValidationService {
 
     private async validateUploadedFile(data: UploadedFileData) {
         const { objectName, size, originalName, userId } = data;
-        if (!userId && !originalName) {
+        if (!userId || !originalName) {
             await this.storageClient.removeObject(objectName);
             this.logger.warn(`Rejected ${objectName}: Metadata is missing`);
             return;
@@ -42,16 +43,16 @@ export class UploadValidationService {
         }
         const asset = await this.databaseService.saveAssit({
             assetName: objectName,
-            originalName:originalName!,
+            originalName,
             size,
             mimeType,
-            userId:userId!,
+            userId,
         });
 
         this.knowledgeBase.emit<any,UploadedFileEventData>('file.uploaded', {
             objectName,
             mimeType,
-            userId:userId!,
+            userId,
             assetId: asset.id!,
         });
 

@@ -1,7 +1,7 @@
 import { Controller, Logger } from '@nestjs/common';
 import { UploadValidationService } from './upload-validation.service.js';
 import { Nack, RabbitPayload, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
-import {type  MinioEvent } from './interfaces.js';
+import { UploadedFileEventDto } from './dto/uploaded-file-event.dto.js';
 
 @Controller()
 export class UploadValidationController {
@@ -13,9 +13,9 @@ export class UploadValidationController {
         routingKey: 'file.uploaded',
         queue: 'file_upload_queue',
     })
-    handleFileUpload(@RabbitPayload()data:MinioEvent ) {
+    async handleFileUpload(@RabbitPayload()data:UploadedFileEventDto ) {
         try {
-            this.uploadValidationService.handleUploadedFile(data)
+            await this.uploadValidationService.handleUploadedFile(data)
         } catch (err) {
             this.logger.error('Failed to validate uploaded file', err);
             return new Nack(false)

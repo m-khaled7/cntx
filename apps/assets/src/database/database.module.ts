@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AssetsRepository } from './repositories/assets.repository.js';
 import { DatabaseService } from './database.service.js';
+import { Asset } from './entities/asset.entity.js';
 
 @Module({
     imports: [
@@ -16,11 +17,13 @@ import { DatabaseService } from './database.service.js';
                 username: configService.getOrThrow<string>("database.username"),
                 password: configService.getOrThrow<string>("database.password"),
                 database: configService.getOrThrow<string>("database.name"),
-                entities:["./entities/*"],
+                autoLoadEntities:true,
                 synchronize: true,
             }),
         }),
+        TypeOrmModule.forFeature([Asset])
     ],
-    providers:[AssetsRepository,DatabaseService]
+    providers:[AssetsRepository,DatabaseService],
+    exports:[DatabaseService]
 })
 export class DatabaseModule {}

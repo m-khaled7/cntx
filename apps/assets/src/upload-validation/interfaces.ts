@@ -1,6 +1,4 @@
-export interface MinioEvent{
-    Records:MinioEventRecord[]
-}
+
 export interface MinioEventRecord {
     s3: {
         bucket: { name: string };
@@ -21,7 +19,7 @@ export interface UploadedFileData {
     userId?: string;
 }
 
-
+//emited event data after successfull validation
 export interface UploadedFileEventData {
     objectName: string;
     mimeType: string;

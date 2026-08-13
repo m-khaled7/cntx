@@ -7,7 +7,8 @@ async function bootstrap() {
       options: {
           urls: [process.env.RMQ_URL!],
           queue:"knowledge-base-queue",
-          queueOptions:{durable:true}
+          queueOptions:{durable:true},
+          noAck:false
       },
   });
   await app.listen();

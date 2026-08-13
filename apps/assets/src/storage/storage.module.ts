@@ -1,10 +1,10 @@
-import { Global, Module } from "@nestjs/common";
+import {  Module } from "@nestjs/common";
 import { MinioProvider } from "./providers/minio.provider.js";
 import { StorageClient } from "./storage-client.js";
 import { StorageService } from "./storage.service.js";
 import { StorageController } from "./storage.controller.js";
 
-@Global()
+
 @Module({
     providers: [{ provide: StorageClient, useClass: MinioProvider },StorageService],
     controllers:[StorageController],

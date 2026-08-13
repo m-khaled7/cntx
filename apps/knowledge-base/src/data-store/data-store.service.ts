@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@nestjs/common";
-import { StoreChunkInput, SearchInput, RankedResult } from "./data-store.interfaces.js";
+import { StoreChunkInput } from "./data-store.interfaces.js";
 import { ChunkEntity } from "./entities/chunk.entity.js";
 import { ChunksRepository } from "./repositories/chunks.repository.js";
 

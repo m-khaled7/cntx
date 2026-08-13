@@ -6,8 +6,8 @@ import { AiModule } from '../AI/ai.module.js';
 import { StorageModule } from '../storage/storage.module.js';
 
 @Module({
-  controllers: [ProcessController],
-  providers: [ProcessService],
-  imports:[AiModule,DataStoreModule,StorageModule]
+    imports: [AiModule, DataStoreModule, StorageModule],
+    controllers: [ProcessController],
+    providers: [ProcessService],
 })
 export class ProcessModule {}

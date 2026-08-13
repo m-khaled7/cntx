@@ -25,9 +25,7 @@ export class GoogleProvider implements DenseModel{
             model:this.config.denseModel,
             contents:text
         })
-        
-        if(!response.embeddings)return undefined
-        const vectors= response.embeddings.map(embed=>embed.values!)
+        const vectors= response.embeddings?.map(embed=>embed.values!)
         return vectors
     }
 
