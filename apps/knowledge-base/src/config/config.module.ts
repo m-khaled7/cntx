@@ -5,6 +5,7 @@ import { envValidationSchema } from './env.validation.js';
 import minioConfig from './configs/minio.config.js';
 import databaseConfig from './configs/database.config.js';
 import googleAiConfig from './configs/google-ai.config.js';
+import rerankerConfig from './configs/reranker.config.js';
 
 @Module({
     imports: [
@@ -13,7 +14,7 @@ import googleAiConfig from './configs/google-ai.config.js';
             cache: true,
             validationSchema:envValidationSchema,
             envFilePath: [`.env.${process.env.NODE_ENV ?? "development"}`, ".env"],
-            load: [serviceConfig,minioConfig,databaseConfig,googleAiConfig],
+            load: [serviceConfig,minioConfig,databaseConfig,googleAiConfig,rerankerConfig],
         }),
     ],
 

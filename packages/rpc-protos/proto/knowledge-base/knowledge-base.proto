@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package knowledgeBase;
+
+import "google/protobuf/struct.proto";
+service RetrivalService {
+  rpc GetRelevantChunks(RetrivalRequest) returns (RelevantChunksResponse);
+}
+
+message RetrivalRequest {
+  string query=1;
+}
+
+message RelevantChunksResponse {
+  repeated RelevantChunk chunks = 1;
+}
+
+message RelevantChunk {
+  string text = 1;
+  double relevance_score = 2;
+  int32 index = 3;
+  google.protobuf.Struct metadata = 4; // optional, arbitrary key-value map
+}
+

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@nestjs/common";
-import { StoreChunkInput } from "./data-store.interfaces.js";
+import { SearchInput, SearchResult, StoreChunkInput } from "./data-store.interfaces.js";
 import { ChunkEntity } from "./entities/chunk.entity.js";
 import { ChunksRepository } from "./repositories/chunks.repository.js";
 
@@ -10,13 +10,21 @@ export const DATA_STORE_PROVIDER = Symbol('DATA_STORE_PROVIDER');
 export class DataStoreService {
     constructor(private readonly chunksRepository:ChunksRepository) {}
 
-    async saveChunks(chunks:StoreChunkInput[]){
+    async storeChunks(chunks:StoreChunkInput[]){
         const chunkEntities=chunks.map(chunk=>this.toEntity(chunk))
         await this.chunksRepository.insertManyInBatches(chunkEntities)
     }
 
-    retriveChunks(query:string,embedding:number[],userId:string,poolSize:number,topK:number){
-        return this.chunksRepository.hybridSearch(userId,embedding,query,poolSize=20,topK=5)
+   async searchChunks(input:SearchInput):Promise<SearchResult[]>{
+        const {userId,queryText,queryEmbedding,topK=10}=input
+        const poolSize=50
+        const result=await this.chunksRepository.hybridSearch(userId,queryEmbedding,queryText,poolSize,topK)
+        return result.map((result):SearchResult=>({
+            id:result.id,
+            content:result.content,
+            metadata:result.metadata??{},
+            score:result.rrf_score
+        }))
     }
 
     private toEntity(chunk:StoreChunkInput):ChunkEntity{

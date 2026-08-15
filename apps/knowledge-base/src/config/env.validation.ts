@@ -20,4 +20,7 @@ export const envValidationSchema = Joi.object({
 
     GOOGLE_API_KEY: Joi.string().required(),
     GOOGLE_EMBED_MODEL: Joi.string(),
+
+    COHERE_API:Joi.string().required(),
+    RERANKER_MODEL:Joi.string().required()
 });

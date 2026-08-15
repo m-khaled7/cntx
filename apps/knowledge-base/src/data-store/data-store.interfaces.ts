@@ -14,7 +14,7 @@ export interface SearchInput {
     topK?: number;
 }
 
-export interface RankedResult {
+export interface SearchResult {
     id: string;
     content: string;
     metadata: Record<string, unknown>;

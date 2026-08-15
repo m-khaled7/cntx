@@ -15,6 +15,7 @@ export class ProcessService {
         private readonly denseModel: DenseModel,
         private readonly dataStore: DataStoreService
     ) {}
+    
     async processFile(msg: UploadedFileEventDto) {
         const { objectName, mimeType, userId, assetId } = msg;
         const objectBuffer = await this.storageClient.getObject(objectName);
@@ -44,7 +45,7 @@ export class ProcessService {
             userId,
             assetId,
         }));
-        await this.dataStore.saveChunks(chunksData);
+        await this.dataStore.storeChunks(chunksData);
         this.logger.debug(`Processing File ${assetId} succeeded`);
     }
 
