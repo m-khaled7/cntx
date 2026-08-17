@@ -21,10 +21,11 @@ export class GoogleProvider implements DenseModel{
 
     async generateDenseVectors(text: string[]): Promise<number[][]|undefined> {
         const ai = this.getAi()
-        const response= await ai.models.embedContent({
-            model:this.config.denseModel,
-            contents:text
-        })
+        const response = await ai.models.embedContent({
+            model: this.config.denseModel,
+            contents: text,
+            config: { outputDimensionality: 1536 },
+        });
         const vectors= response.embeddings?.map(embed=>embed.values!)
         return vectors
     }

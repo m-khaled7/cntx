@@ -17,7 +17,7 @@ import { ChunkEntity } from "./entities/chunk.entity.js";
                     password: configService.getOrThrow<string>('database.password'),
                     database: configService.getOrThrow<string>('database.name'),
                     autoLoadEntities:true,
-                    synchronize: true,
+                    synchronize: false,
                 }),
             }),
         TypeOrmModule.forFeature([ChunkEntity])],

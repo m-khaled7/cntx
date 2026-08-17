@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package ai;
+
+service QueryService {
+  rpc Query(QueryRequest) returns (QueryResponse);
+}
+
+message QueryRequest {
+  string query =1;
+}
+message QueryResponse {
+  string answer = 1;
+}

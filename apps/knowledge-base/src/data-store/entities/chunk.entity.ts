@@ -6,7 +6,7 @@ export class ChunkEntity {
 
     @Column('text') content: string;
 
-    @Column('vector') embedding: number[];
+    @Column({type:"vector",length:1536}) embedding: number[];
 
     @Column('uuid') userId: string;
     @Column('uuid') assetId: string;

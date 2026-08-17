@@ -18,6 +18,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "^2.14.0",
     "@cntx/rpc-protos": "workspace:^",
     "@google/genai": "^2.16.0",
     "@grpc/grpc-js": "^1.14.4",
@@ -32,6 +33,7 @@
     "file-type": "^22.0.1",
     "joi": "^18.2.3",
     "pg": "^8.23.0",
+    "protobufjs": "^8.7.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "tsx": "^4.23.12",

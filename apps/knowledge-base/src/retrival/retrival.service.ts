@@ -17,17 +17,25 @@ export class RetrivalService {
 
     async getRelevantChunks(dto: GetRelevantChunks, userId: string) {
         const {query:queryText}=dto
-        const queryEmbedding = await this.denseModel.generateDenseVectors([queryText])[0];
+        const queryEmbedding = await this.denseModel.generateDenseVectors([queryText]);
         if (!queryEmbedding) {
             this.logger.warn('generate embeddings failed');
             throw new RpcError(status.INTERNAL, 'internal server error');
         }
         const candidatedChunks = await this.dataStoreService.searchChunks({
             queryText,
-            queryEmbedding,
+            queryEmbedding:queryEmbedding[0]!,
             userId,
         });
         const chunks = candidatedChunks.map((result) => result.content);
-        return await this.rerankerModel.rerankChunks(queryText, chunks);
+        const relevantChunks= await this.rerankerModel.rerankChunks(queryText, chunks);
+        return {
+        chunks: relevantChunks.map((c) => ({
+            text: c.text,
+            relevanceScore: c.relevanceScore,
+            index: c.index,
+            metadata: c.metadata ?? {},
+        })),
+    };
     }
 }

@@ -25,21 +25,22 @@ export function generateProtos(protoDirPath:string, outDirPath:string) {
         .map((file) => path.join(protoDirPath, file));
 
     const protoc = spawn(
-        "protoc",
+        'protoc',
         [
             `--plugin=protoc-gen-ts_proto=${plugin}`,
             `--ts_proto_out=${outDirPath}`,
-            "--ts_proto_opt=importSuffix=.js",
-            "--ts_proto_opt=nestJs=true",
-            "--ts_proto_opt=outputServices=grpc-js",
-            "--ts_proto_opt=esModuleInterop=true",
-            "--ts_proto_opt=forceLong=number",
-            "-I",
+            '--ts_proto_opt=importSuffix=.js',
+            '--ts_proto_opt=nestJs=true',
+            '--ts_proto_opt=outputServices=grpc-js',
+            '--ts_proto_opt=esModuleInterop=true',
+            '--ts_proto_opt=forceLong=number',
+            '--ts_proto_opt=addGrpcMetadata=true',
+            '-I',
             protoDirPath,
             ...protoFiles,
         ],
         {
-            stdio: "inherit",
+            stdio: 'inherit',
         }
     );
 

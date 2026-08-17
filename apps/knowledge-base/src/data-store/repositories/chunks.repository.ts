@@ -69,7 +69,7 @@ export class ChunksRepository {
             SELECT id, content, metadata,
                    ROW_NUMBER() OVER (ORDER BY embedding <=> $1) AS rank
             FROM chunks
-            WHERE user_id = $2
+            WHERE "userId" = $2
             ORDER BY embedding <=> $1
             LIMIT $3
         ),
@@ -78,7 +78,7 @@ export class ChunksRepository {
                    ROW_NUMBER() OVER (ORDER BY paradedb.score(id) DESC) AS rank
             FROM chunks
             WHERE id @@@ paradedb.parse($4)
-              AND user_id = $2
+              AND "userId" = $2
             LIMIT $3
         )
         SELECT
