@@ -159,12 +159,24 @@ importers:
 
   apps/api-gateway:
     dependencies:
+      '@cntx/rpc-protos':
+        specifier: workspace:^
+        version: link:../../packages/rpc-protos
+      '@grpc/grpc-js':
+        specifier: ^1.14.4
+        version: 1.14.4
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.29(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core':
         specifier: ^11.0.1
         version: 11.1.29(@nestjs/common@11.1.29(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@11.1.29)(@nestjs/platform-express@11.1.29)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/jwt':
+        specifier: ^11.0.2
+        version: 11.0.2(@nestjs/common@11.1.29(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))
+      '@nestjs/microservices':
+        specifier: ^11.1.29
+        version: 11.1.29(@grpc/grpc-js@1.14.4)(@nestjs/common@11.1.29(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)(amqp-connection-manager@5.0.0(amqplib@2.0.1))(amqplib@2.0.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.29(@nestjs/common@11.1.29(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.29)

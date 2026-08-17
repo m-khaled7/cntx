@@ -18,8 +18,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@cntx/rpc-protos": "workspace:^",
+    "@grpc/grpc-js": "^1.14.4",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/microservices": "^11.1.29",
     "@nestjs/platform-express": "^11.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
