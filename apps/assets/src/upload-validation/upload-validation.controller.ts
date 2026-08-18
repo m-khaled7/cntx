@@ -13,12 +13,12 @@ export class UploadValidationController {
         routingKey: 'file.uploaded',
         queue: 'file_upload_queue',
     })
-    async handleFileUpload(@RabbitPayload()data:UploadedFileEventDto ) {
+    async handleFileUpload(@RabbitPayload() data: UploadedFileEventDto) {
         try {
-            await this.uploadValidationService.handleUploadedFile(data)
+            await this.uploadValidationService.handleUploadedFile(data);
         } catch (err) {
             this.logger.error('Failed to validate uploaded file', err);
-            return new Nack(false)
+            return new Nack(false);
         }
     }
 }

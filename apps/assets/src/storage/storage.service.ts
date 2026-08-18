@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { fileMetadata, StorageClient } from "./storage-client.js";
-import path from "path";
-import { CreateUploadUrl } from "./dto/create-Upload-Url.dto.js";
+import { Injectable } from '@nestjs/common';
+import { FileMetadata, StorageClient } from './storage-client.js';
+import path from 'path';
+import { CreateUploadUrl } from './dto/create-upload-url.dto.js';
 
 @Injectable()
 export class StorageService {
@@ -10,7 +10,7 @@ export class StorageService {
     async createPostUrl(dto: CreateUploadUrl, userId: string) {
         const { fileName } = dto;
         const objectName = this.generateFileName(fileName);
-        const metadata: fileMetadata = {
+        const metadata: FileMetadata = {
             uploadedBy: userId,
             originalName: fileName,
         };
@@ -18,7 +18,7 @@ export class StorageService {
             objectName,
             metadata
         );
-        const stringFormData = {}; //serialize form data to map<string,strig> to satisfy rpc and frontend
+        const stringFormData: Record<string, string> = {}; // serialize form data to map<string,string>
         Object.entries(formData).forEach(([k, v]) => {
             stringFormData[k] = String(v);
         });

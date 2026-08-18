@@ -1,10 +1,10 @@
-import Stream from "stream";
+import Stream from 'stream';
 
 export interface PreSignedPost {
     postURL: string;
     formData: Record<string, string>;
 }
-export interface fileMetadata {
+export interface FileMetadata {
     uploadedBy: string;
     originalName: string;
     [key: string]: string;
@@ -12,8 +12,8 @@ export interface fileMetadata {
 export abstract class StorageClient {
     abstract createPreSignedPost(
         objectName: string,
-        metadata: fileMetadata
+        metadata: FileMetadata
     ): Promise<PreSignedPost>;
-        abstract getObject( onjectName: string,bucketName?: string,): Promise<Stream.Readable>;
-        abstract removeObject( onjectName: string,bucketName?: string,): Promise<void>;
+    abstract getObject(objectName: string, bucketName?: string): Promise<Stream.Readable>;
+    abstract removeObject(objectName: string, bucketName?: string): Promise<void>;
 }

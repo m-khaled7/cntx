@@ -4,11 +4,10 @@ import { AssetsRepository } from './repositories/assets.repository.js';
 
 @Injectable()
 export class DatabaseService {
-  constructor(private readonly assetRepository:AssetsRepository){}
+    constructor(private readonly assetRepository: AssetsRepository) {}
 
-  saveAssit(data:Asset){
-    const assetEntity=this.assetRepository.createAsset(data)
-    return this.assetRepository.saveAsset(assetEntity)
-  }
-
+    saveAsset(data: Asset) {
+        const assetEntity = this.assetRepository.createAsset(data);
+        return this.assetRepository.saveAsset(assetEntity);
+    }
 }

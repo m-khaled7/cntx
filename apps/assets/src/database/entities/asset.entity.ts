@@ -1,26 +1,25 @@
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
-
-@Entity("assets")
+@Entity('assets')
 export class Asset {
     @PrimaryGeneratedColumn('uuid')
-    id?:string
+    id?: string;
 
     @Column()
-    assetName:string
+    assetName: string;
 
     @Column()
-    originalName:string
+    originalName: string;
 
     @Column()
-    mimeType:string
+    mimeType: string;
 
     @Column()
-    size:number
+    size: number;
 
     @Column()
-    userId:string
+    userId: string;
 
     @CreateDateColumn()
-    createdAt?:Date
+    createdAt?: Date;
 }

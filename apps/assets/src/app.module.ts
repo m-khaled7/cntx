@@ -4,6 +4,7 @@ import { StorageModule } from './storage/storage.module.js';
 import { DatabaseModule } from './database/database.module.js';
 import { UploadValidationModule } from './upload-validation/upload-validation.module.js';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
     imports: [
@@ -11,9 +12,12 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
         StorageModule,
         DatabaseModule,
         UploadValidationModule,
-        RabbitMQModule.forRoot({
-            uri: process.env.RMQ_URL!,
-            enableControllerDiscovery: true,
+        RabbitMQModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: (configService: ConfigService) => ({
+                uri: configService.getOrThrow<string>('RMQ_URL'),
+                enableControllerDiscovery: true,
+            }),
         }),
     ],
 })

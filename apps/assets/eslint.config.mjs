@@ -1,17 +1,15 @@
 // @ts-check
-import { defineConfig } from "eslint/config";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import { baseConfig } from "@cntx/eslint-config";
 
-export default defineConfig([
+export default tseslint.config(
     {
         ignores: ["eslint.config.mjs", "dist/"],
     },
-
+    ...baseConfig,
     {
-        extends: [...tseslint.configs.recommendedTypeChecked, baseConfig],
         languageOptions: {
             globals: {
                 ...globals.jest,
@@ -30,4 +28,5 @@ export default defineConfig([
 
     // 3. Prettier Formatting Plugin (Always run last to overwrite style conflicts)
     eslintPluginPrettierRecommended,
-]);
+);
+

@@ -1,5 +1,5 @@
-import { MinioEventRecord } from "../interfaces.js";
+import { MinioEventRecord } from '../interfaces.js';
 
-export class UploadedFileEventDto{
-    Records:MinioEventRecord[]
+export class UploadedFileEventDto {
+    Records: MinioEventRecord[];
 }

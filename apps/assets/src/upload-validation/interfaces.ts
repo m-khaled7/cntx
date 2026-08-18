@@ -1,11 +1,10 @@
-
 export interface MinioEventRecord {
     s3: {
         bucket: { name: string };
         object: {
             key: string;
             size: number;
-            eTag:string,
+            eTag: string;
             contentType?: string;
             userMetadata?: Record<string, string>;
         };

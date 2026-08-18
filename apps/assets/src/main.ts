@@ -4,14 +4,15 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { assetsProtoPath } from '@cntx/rpc-protos';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule,{
-      transport: Transport.GRPC,
-      options: {
-          url: `0.0.0.0:${process.env.PORT ?? 3002}`,
-          package: 'assets',
-          protoPath: assetsProtoPath,
-      },
-  })
-  app.listen()
+    const port = Number(process.env.PORT ?? 3002);
+    const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+        transport: Transport.GRPC,
+        options: {
+            url: `0.0.0.0:${port}`,
+            package: 'assets',
+            protoPath: assetsProtoPath,
+        },
+    });
+    await app.listen();
 }
-bootstrap();
+void bootstrap();

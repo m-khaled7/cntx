@@ -10,11 +10,10 @@ import databaseConfig from './configs/database.config.js';
         _ConfigModule.forRoot({
             isGlobal: true,
             cache: true,
-            validationSchema:envValidationSchema,
-            envFilePath: [`.env.${process.env.NODE_ENV ?? "development"}`, ".env"],
-            load: [serviceConfig,minioConfig,databaseConfig],
+            validationSchema: envValidationSchema,
+            envFilePath: [`.env.${process.env.NODE_ENV ?? 'development'}`, '.env'],
+            load: [serviceConfig, minioConfig, databaseConfig],
         }),
     ],
-
 })
 export class ConfigModule {}
