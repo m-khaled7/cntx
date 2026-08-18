@@ -1,17 +1,18 @@
-import { registerAs } from "@nestjs/config";
+import { registerAs } from '@nestjs/config';
+import type { JwtSignOptions } from '@nestjs/jwt';
 
 export interface JWTConfig {
     accessSecret: string;
     refreshSecret: string;
-    accessExp: string;
-    refreshExp: string;
+    accessExp: JwtSignOptions['expiresIn'];
+    refreshExp: JwtSignOptions['expiresIn'];
 }
 export default registerAs(
-    "jwt",
+    'jwt',
     (): JWTConfig => ({
         accessSecret: process.env.JWT_ACCESS_SECRET!,
         refreshSecret: process.env.JWT_REFRESH_SECRET!,
-        accessExp: "30m",
-        refreshExp: "7d",
-    })
+        accessExp: '30m',
+        refreshExp: '7d',
+    }),
 );

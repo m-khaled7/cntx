@@ -1,15 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: "users" })
+@Entity({ name: 'users' })
 export class User {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
-    firstName:string
+    firstName: string;
 
     @Column()
-    lastName:string
+    lastName: string;
 
     @Column({ unique: true })
     email: string;
@@ -17,6 +17,6 @@ export class User {
     @Column()
     passwordHash: string;
 
-    @Column({type:"text", nullable: true})
+    @Column({ type: 'text', nullable: true })
     refreshTokenHash: string | null;
 }
